@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='UTF-8' />
+        <link href='../css/bootstrap.min.css' rel='stylesheet'>
+        <link href='../css/bootstrap-theme.min.css' rel='stylesheet'>
+        <link href='../css/mystyles.css' rel='stylesheet'>
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+        <script src='../js/bootstrap.min.js'></script>
+        <script src='../js/reloj.js'></script>
+        <title>App-tracking-twig</title>
+    </head>
+    <body onload='mueveReloj()'>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">APP-TRACKING</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#"></span>Home</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Autores<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Rubén Álvarez</a></li>
+                                <li><a href="#">Gorka Pérez</a></li>
+                                <li><a href="#">Iosu Recalde</a></li>
+                                <li><a href="#">Sergio Varela</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-center">
+                        <li>
+                            <a id="reloj">Cargando reloj</a>
+                        </li> 
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <!-- importante -->
+                        <li><a href="controller/logout.php">Cerrar sesión</a></li>
+                    </ul>                
+                </div>    
+            </div>
+        </nav>
+        
+        
+        <div id='mapa' style='width:100%;height:550px;'></div>
+        <div class="container">
+            <div class="row">
+                <div class="table-responsive">
+                    <table class='table table-striped table-hover'>
+                        <tr>
+                            <th>Id</th><th>Nombre</th><th>Latitud</th><th>Longitud</th><th>Fecha</th><th>Usuario</th><td>&nbsp;</td>
+                        </tr>
+                        {% for Posicion in markers %}
+                            <!--<tr><td>{#{{Posicion.getTitulo()}}#}</td><td>{#{{Posicion.getLatitud()}#}}</td><td>{#{{Posicion.getLongitud()}#}}</td></tr>-->
+                            <!--<tr>{#{{Posicion.mostrar()}}#}</tr>-->
+                            <tr>
+                                <!--<form action='index.php?action=modificarPosicion' method='POST' name='varias'>-->
+                                <form action='controller/controller.php' method='POST' name='varias'>
+                               	<td>{{Posicion.getId_posicion()}}</td> <input hidden name='id_posicion' value={{Posicion.getId_posicion()}} />
+                               	<td><input name='titulo' value='{{Posicion.getTitulo()}}' /></td>
+                               	<td><input name='latitud' value={{Posicion.getLatitud()}} /></td>
+                               	<td><input name='longitud' value={{Posicion.getLongitud()}} /></td>
+                               	<td>{{Posicion.getHora()}}</td>
+                               	<td>{{Posicion.getId_usuario()}}</td>
+                               	<td> 
+                                   	<input type='submit' name='editar' value='Editar'>
+                                   	<input type='submit' name='borrar' value='Borrar'>
+                               	</td>
+                               	</form>
+                           	</tr>
+                        {% endfor %}
+                        <tr>
+                            <th>Id</th><th>Nombre</th><th>Latitud</th><th>Longitud</th><th>Fecha</th><th>Usuario</th><td></td>
+                        </tr>            
+                    </table>
+                </div> 
+            </div>
+        
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Añadir Posición</h4>
+                </div>   
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+                        <form class="form-horizontal" action='controller/controller.php' method='POST' name='posicionar'> 
+                        <div  class="form-group">
+                            <label class="col-sm-2 control-label" for="usuario">Título:</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type='text' placeholder="titulo" name='titulo' />
+                            </div>
+                        </div>
+                        <div  class="form-group">
+                            <label class="col-sm-2 control-label" for="usuario">latitud:</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type='text' placeholder="latitud" name='latitud' />
+                            </div>
+                        </div>    
+                        <div  class="form-group">    
+                            <label class="col-sm-2 control-label" for="usuario">longitud:</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type='text' placeholder="longitud" name='longitud' />
+                            </div>
+                        </div>
+                        <button class="col-sm-offset-2 btn btn-info" type="submit" name="crearPosicion" >Entrar</button>
+                        </form>
+                </div>
+            </div>
+        </div>    
+        <script>
+        var milatitud;
+        var milongitud;
+        function initialize() {
+            if (typeof navigator.geolocation == 'object'){
+                navigator.geolocation.getCurrentPosition(mostrar_ubicacion);
+            }
+            function mostrar_ubicacion(p){
+                milatitud = p.coords.latitude;
+                milongitud = p.coords.longitude;
+            }
+            var myLatLng = new google.maps.LatLng(milatitud, milongitud);
+            var map = new google.maps.Map(document.getElementById('mapa'), {
+                zoom: 10,
+                mapTypeId:google.maps.MapTypeId.ROADMAP,
+                center: myLatLng
+            });
+            //array_push($markers, $lat, $lng, $titulo);
+            {% for Posicion in markers %}
+                var marker = new google.maps.Marker({
+                position: {lat: {{ Posicion.getLatitud() }}, lng: {{ Posicion.getLongitud() }} },
+                map: map,
+                title: '{{ Posicion.getTitulo() }}'
+              });
+            {% endfor %}
+            
+            //path
+            var ruta = [];
+            {% for Posicion in markers %}
+                ruta.push({lat: {{ Posicion.getLatitud() }}, lng: {{ Posicion.getLongitud() }} })
+            {% endfor %}    
+            var lineas = new google.maps.Polyline({
+                path: ruta,
+                map: map,
+                strokeColor: '#222000',
+                strokeWeight: 4,
+                strokeOpacity: 0.6,
+                clickable: false
+            });
+            google.maps.event.addDomListener(window, 'load', initialize);
+        }
+        </script>
+        <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyApO7P8vAubMM9T97jMJ2YDpAJuEeJ99yg&callback=initialize' async defer></script>
+    </body>
+</html>

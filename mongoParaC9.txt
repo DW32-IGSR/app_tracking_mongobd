@@ -1,0 +1,165 @@
+http://www.tutorialspoint.com/mongodb/mongodb_create_database.htm
+
+$ mkdir data
+$ echo 'mongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@"' > mongod
+$ chmod a+x mongod
+
+$ ./mongod
+
+despues de iniciar mongod se puede ejecutar
+
+mongo
+
+
+conexion
+
+    http://php.net/manual/en/mongo.connecting.auth.php
+    
+    pendiente de crear usuario
+    mongodb://<dbuser>:<dbpassword>@ds33400.mongolab.com:33400/
+    el nuestro mongodb://<dbuser>:<dbpassword>@ds049864.mongolab.com:49864/app_tracking
+
+    $m = new MongoClient("mongodb://test:test@ds033400.mongolab.com:33400/zmwebdev-test");
+    
+    
+    mongodb://sysop:moon@localhost
+    
+    pendiente de revision
+    $m = new MongoClient("mongodb://${username}:${password}@localhost");
+    $m = new MongoClient("mongodb://${username}:${password}@localhost/database");
+    ejemplo
+    public static function conectar() {
+		//$m = new MongoClient("mongodb://${username}:${password}@localhost/database");
+		return new MongoClient("mongodb://usuario:pass@localhost/");
+	}
+
+show databases
+
+    show dbs 
+
+drop database
+
+    use prueba
+    db.dropDatabse()
+    
+crear usuarios
+
+    use admin
+    db.createUser(
+      {
+        user: "admin",
+        pwd: "zubiri",
+        roles: [ { role: "userAdminAnyDatabase", db: "app_tracking" } ]
+      }
+    )
+    
+    use nombre_bd
+    db.addUser({
+        user:"admin",
+        pwd:"zubiri",
+        roles:["readWrite","dbAdmin"]
+    })
+    
+show collections
+
+    show collections
+    
+describe tables
+
+    db.getCollectionNames()
+    
+    show collections
+    
+
+
+use database
+
+    use test
+
+create database
+
+    db.createCollection('prueba')
+
+insert into
+
+    db.users.save( {username:"prueba"} )
+
+    db.restaurants.insert(
+       {
+          "address" : {
+             "street" : "2 Avenue",
+             "zipcode" : "10075",
+             "building" : "1480",
+             "coord" : [ -73.9557413, 40.7720266 ],
+          },
+          "borough" : "Manhattan",
+          "cuisine" : "Italian",
+          "grades" : [
+             {
+                "date" : ISODate("2014-10-01T00:00:00Z"),
+                "grade" : "A",
+                "score" : 11
+             },
+             {
+                "date" : ISODate("2014-01-16T00:00:00Z"),
+                "grade" : "B",
+                "score" : 17
+             }
+          ],
+          "name" : "Vella",
+          "restaurant_id" : "41704620"
+       }
+    )
+
+    db.usuarios.insert(
+       {
+          "usuario" : "iosu",
+          "pass" : "1234",
+          "email" : "prueba@error.com",
+          "activacion_key" : "prueba",
+          "validated" : 1
+       }
+    )
+
+
+update
+
+    db.movie.update({'name':'texto a modificar'},{$set:{'name':'nuevo texto'}})
+    
+
+delete
+
+    db.movie.remove({'name':'nuevo texto'})
+    
+
+drop collections
+
+    db.movie.drop()
+    
+
+drop databases
+
+    db.dropDatabase()
+
+
+select
+
+    db.restaurants.find()
+    
+    igual
+    db.restaurants.find( { "borough": "Manhattan" } )
+    
+    igual
+    db.restaurants.find( { "grades.grade": "B" } )
+    
+    mayor
+    db.restaurants.find( { "grades.score": { $gt: 30 } } )
+    
+    menor
+    db.restaurants.find( { "grades.score": { $lt: 10 } } )
+    
+    validacion de usuario mediante pass y validated
+    db.usuarios.find({usuario:"iosu",pass:"1234",validated:1})
+    
+    pendiente de revisar
+    db.usuarios.find({usuario:"$usuario",pass:"$pass",validated:1})

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset='UTF-8' />
+        <link href='../css/bootstrap.min.css' rel='stylesheet'>
+        <link href='../css/bootstrap-theme.min.css' rel='stylesheet'>
+        <link href='../css/mystyles.css' rel='stylesheet'>
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+        <script src='../js/bootstrap.min.js'></script>
+        <script src='../js/reloj.js'></script>
+        <title>App-tracking-twig</title>
+</head>    
+<body onload='mueveReloj()'>
+    
+<div class="container">
+    <script type='text/javascript'>
+        if (typeof navigator.geolocation == 'object'){
+            navigator.geolocation.getCurrentPosition(mostrar_ubicacion);
+        }
+        function mostrar_ubicacion(p){
+            var latitud = p.coords.latitude;
+            var longitud = p.coords.longitude;
+            //var titulo = 'prueba32';
+            //alert(latti+' , '+longi);
+            document.getElementById('formulario_nav').action='../controller/controller.php?login&latitud='+latitud+'&longitud='+longitud;
+            document.getElementById('formulario_login').action='../controller/controller.php?login&latitud='+latitud+'&longitud='+longitud;
+        }
+    </script>
+ 
+ <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">APP-TRACKING</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#"></span>Login</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Autores<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Rubén Álvarez</a></li>
+                        <li><a href="#">Gorka Pérez</a></li>
+                        <li><a href="#">Iosu Recalde</a></li>
+                        <li><a href="#">Sergio Varela</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-center">
+                <li>
+                    <a id="reloj">Cargando reloj</a>
+                </li> 
+            </ul>
+            <form class="navbar-form navbar-right" id='formulario_nav'  role="form" action='' method='POST' name='formulario_login'>
+                <div  class="form-group">
+                    <label class="sr-only" for="usuario">Usuario:</label>
+                    <input class="form-control" type='text' placeholder="usuario" name='usuario' />
+                </div>
+                <div class="form-group">
+                    <label class="sr-only"for="pass">Contraseña:</label>
+                    <input class="form-control" type='password' placeholder="Password" name='pass' />
+                </div>
+                <button type="submit" name="login" class="btn btn-info">Entrar</button>
+            </form>
+        </div>    
+    </div>
+</nav>
+<br/><br/>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4 class="panel-title">Inicio de sesion</h4>
+    </div>
+    <div class="panel-body">
+        <!-- description list -->
+        <dl class="dl-horizontal">
+            <dd>
+                <form id='formulario_login' class="form-horizontal" role="form" action='' method='POST' name='formulario_login'>
+                    <div  class="form-group">
+                        <label class="col-sm-2 control-label" for="usuario">Usuario / Email:</label>
+                        <div class="col-sm-5">
+                            <input class="form-control" type='text' placeholder="usuario" name='usuario' />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"for="pass">Contraseña:</label>
+                        <div class="col-sm-5">
+                            <input class="form-control" type='password' placeholder="Password" name='pass' />
+                        </div>
+                    </div>
+                    <!--<input type='submit' name='login' value='Entrar'>-->
+                    <button class="col-sm-offset-2 btn btn-info" type="submit" name="login" >Entrar</button>
+                </form>
+            </dd>
+        </dl>
+    </div>
+</div>    
+<br/><br/>    
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4 class="panel-title">Registro de usuario</h4>
+    </div>
+    <div class="panel-body">
+        <!-- description list -->
+        <dl class="dl-horizontal">
+            <dd>
+                <form class="form-horizontal" action='../controller/controller.php' method='POST' name='formulario_register'>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="usuario">Usuario:</label>
+                        <div class="col-sm-5">
+                            <input class="form-control" type='text' name='usuario'>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="usuario">Email:</label>
+                        <div class="col-sm-5">
+                            <input class="form-control" type='text' name='email'>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="pass">Contraseña:</label>
+                        <div class="col-sm-5">
+                            <input class="form-control" type='password' name='pass'>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="pass2">Repita la contraseña:</label>
+                        <div class="col-sm-5">
+                            <input class="form-control" type='password' name='pass2'>
+                        </div>
+                    </div> 
+                    <!--<input type='submit' name='register' value='Registrar'>-->
+                    <button class="col-sm-offset-2 btn btn-info" type="submit" name="register">Enviar</button>
+                </form>
+            </dd>
+        </dl>
+    </div>
+</div>   
+</body>
+</html>
