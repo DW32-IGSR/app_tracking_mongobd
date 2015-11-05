@@ -7,7 +7,6 @@ class Model {
     private $datos;
     private $latitud;
     private $longitud;
-    
     private $nombre;
     private $pass;
     private $usuario;
@@ -18,8 +17,6 @@ class Model {
     }*/
     
     public function insertarPosicion($id_usuario, $titulo, $latitud, $longitud) {
-        //echo "insercion de posicion en marcha";
-        //echo "  id $id_usuario titulo $titulo latitud $latitud longitud $longitud";
         require_once("conexion.class.php");
         $m = conexion::conectar();
         $db = $m->selectDB('app_tracking');
@@ -62,23 +59,6 @@ class Model {
         }
     }
     
-    /*public function buscar_posiciones(){
-        //echo "prueba  700 ".$_SESSION['id_usuario'];
-        require_once("conexion.class.php");
-        $db = Conexion::conectar();
-    	$stmt = $db->prepare("SELECT id_posicion, latitud, longitud, hora, titulo FROM posicion WHERE id_usuario=:id_usuario");
-        //$stmt->bindParam(":id_usuario", $_SESSION['id_usuario'], PDO::PARAM_INT);
-        $stmt->bindParam(":id_usuario", $_SESSION['id_usuario'], PDO::PARAM_INT);
-        $stmt->execute();
-        //$respuesta="\n";
-        //$_SESSION['id_usuario']=1;
-        $marcadores = array();
-        foreach ($stmt->fetchAll() as $row) {
-            array_push($marcadores, new Posicion($row['id_posicion'],$row['latitud'],$row['longitud'],$row['hora'],$_SESSION['id_usuario'],$row['titulo']));
-        }
-        return $marcadores;
-    }*/
-    
     public function buscar_posiciones(){
         require_once("conexion.class.php");
         $m = conexion::conectar();
@@ -96,20 +76,22 @@ class Model {
     }
     
     public function buscarUsuario($usuario, $pass, $latitud, $longitud) {
+        //echo "en busca de usuario -- ";
         require_once("conexion.class.php");
         $m = conexion::conectar();
         $db = $m->selectDB('app_tracking');
         $collection = $db->usuarios;
-        $mongo_usuario=array("usuario" => "$usuario", "pass" => "$pass");
+        $mongo_usuario=array("usuario" => "$usuario", "pass" => md5($pass));
+        //var_dump($mongo_usuario);
         $cursor = $collection->find($mongo_usuario);
-
-        
+        //var_dump($cursor);
         foreach ( $cursor as $id => $value ) {
-            if ($value['validated'] == 1) {
+            if ($value['validated']) {
                 $usuario=new Usuario($value['_id'],$value["usuario"],$value["pass"]);
                 $_SESSION['id_usuario']=$value["_id"];
                 $titulo=date("Y-m-d H:i:s");
                 Model::insertarPosicion($value['_id'], $titulo, $latitud, $longitud);
+                //echo "sesion establecida";
             } else {
                 echo "No estas activado";
             }
