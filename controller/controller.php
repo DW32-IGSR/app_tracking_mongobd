@@ -46,7 +46,7 @@ if (isset($_POST['login'])){
     //configurando para insertar titulo
     //$titulo = $_GET['titulo'];
     Model::buscarUsuario($usuario, $pass, $latitud, $longitud);
-    header('Location: ../');
+    //header('Location: ../');
 }
 
 
@@ -95,7 +95,7 @@ if (isset($_POST['register'])){
         
         # Make the call to the client.
         $result = $mgClient->sendMessage("$domain",
-        array('from'    => 'Todo-List IGSR <postmaster@sandboxe7f47692877a4fd6b2115e79c3ce660d.mailgun.org>',
+        array('from'    => 'App-Tracking IGSR <postmaster@sandboxe7f47692877a4fd6b2115e79c3ce660d.mailgun.org>',
             //'to'      => 'IGSR <dw32igsr@gmail.com>',
             'to'      => $usuario . ' ' .$email,
             'subject' => 'Registro en App-Tracking',
@@ -105,7 +105,7 @@ if (isset($_POST['register'])){
                         Su cuenta ha sido creada, y debe ser activada antes de poder ser utilizada.
                         Para activar la cuenta, haga click en el siguiente enlace o copielo en la
                         barra de direcciones del navegador:
-                        https://app-tracking-twig-nohtrim.c9.io/model/activate.php?activation=".$random_key.""));
+                        https://app-tracking-mongodb-nohtrim.c9.io/model/activate.php?activation=".$random_key.""));
                 
         header('Location: ../');
         //echo "registro completado";
