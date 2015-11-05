@@ -8,7 +8,7 @@ class Posicion {
     private $id_posicion;
     private $titulo;
     
-    public function __construct($id_posicion, $latitud, $longitud, $hora, $id_usuario, $titulo) {
+    public function __construct($id_posicion, $id_usuario, $titulo, $latitud, $longitud, $hora ) {
         $this->id_posicion = $id_posicion;
         $this->latitud = $latitud;
         $this->longitud = $longitud;

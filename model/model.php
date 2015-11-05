@@ -62,7 +62,7 @@ class Model {
         }
     }
     
-    public function buscar_posiciones(){
+    /*public function buscar_posiciones(){
         //echo "prueba  700 ".$_SESSION['id_usuario'];
         require_once("conexion.class.php");
         $db = Conexion::conectar();
@@ -77,44 +77,38 @@ class Model {
             array_push($marcadores, new Posicion($row['id_posicion'],$row['latitud'],$row['longitud'],$row['hora'],$_SESSION['id_usuario'],$row['titulo']));
         }
         return $marcadores;
+    }*/
+    
+    public function buscar_posiciones(){
+        require_once("conexion.class.php");
+        $m = conexion::conectar();
+        $db = $m->selectDB('app_tracking');
+        $collection = $db->posiciones;
+        $id_usuario_temp=$_SESSION['id_usuario'];
+        $mongo_posicion=array('id_usuario' => "$id_usuario_temp");
+        $cursor = $collection->find($mongo_posicion);
+        $marcadores = array();
+        
+        foreach ( $cursor as $id => $value ) {
+            array_push($marcadores, new Posicion($value['_id'], $_SESSION['id_usuario'], $value['titulo'], $value['latitud'], $value['longitud'], $value['hora']));
+        }
+        return $marcadores;
     }
     
     public function buscarUsuario($usuario, $pass, $latitud, $longitud) {
-        //echo "prueba 500 ".$_SESSION['id_usuario'];
         require_once("conexion.class.php");
         $m = conexion::conectar();
         $db = $m->selectDB('app_tracking');
         $collection = $db->usuarios;
-        
-        //$sweetQuery = array('Details.Taste' => 'Sweet');
         $mongo_usuario=array("usuario" => "$usuario", "pass" => "$pass");
-        //$mongo_usuario=array('usuario' => "$usuario", 'pass' => "$pass");
         $cursor = $collection->find($mongo_usuario);
-        //$respuesta="";
-        
-        //---
-        //$cursor = $collection->find();
-        //var_dump(iterator_to_array($cursor));
-        //---
-        /*
-        foreach ( $cursor as $id => $value )
-        {
-            echo "$id: ";
-            var_dump( $value );
-        }
-        */
+
         
         foreach ( $cursor as $id => $value ) {
             if ($value['validated'] == 1) {
-                //echo "mostrar los datos del cursor <br/><br/>";
-                //var_dump( $value );
-                
                 $usuario=new Usuario($value['_id'],$value["usuario"],$value["pass"]);
-                //echo "<p>".$usuario->mostrar()."</p>";
                 $_SESSION['id_usuario']=$value["_id"];
-                //echo "<p>valor de session id_usuario<p>".$_SESSION['id_usuario'];
                 $titulo=date("Y-m-d H:i:s");
-                
                 Model::insertarPosicion($value['_id'], $titulo, $latitud, $longitud);
             } else {
                 echo "No estas activado";
@@ -131,16 +125,4 @@ class Model {
         $document = array( "usuario" => $usuario, "pass" => md5($pass), "email" => $email, "activacion_key" => $random_key, "validated" => $validated );
         $collection->insert($document);
     }
-    /*public function registrarUsuario($usuario, $pass, $email, $random_key, $validated){
-        require_once("conexion.class.php");
-        $db = Conexion::conectar();
-        
-        $stmt = $db->prepare("INSERT INTO usuario (usuario, pass, email, activacion_key, validated) VALUES (:usuario, :pass, :email, :activacion_key, :validated)");
-        $stmt->bindParam(":usuario", $usuario, PDO::PARAM_STR);
-        $stmt->bindParam(":pass", md5($pass), PDO::PARAM_STR);
-        $stmt->bindParam(":email", $email);
-        $stmt->bindParam(":activacion_key", $random_key);
-        $stmt->bindParam(":validated", $validated);
-        $stmt->execute();
-    }*/
 }

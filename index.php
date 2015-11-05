@@ -8,7 +8,7 @@ $loader = new Twig_Loader_Filesystem('view');
 $twig = new Twig_Environment($loader);
 
 if (isset($_SESSION['id_usuario'])){
-	//$marcadores=Model::buscar_posiciones();
+	$marcadores=Model::buscar_posiciones();
 	//var_dump($marcadores);
 	echo $twig->render('index.html', 
 						array(

@@ -46,23 +46,8 @@ if (isset($_POST['login'])){
     //configurando para insertar titulo
     //$titulo = $_GET['titulo'];
     Model::buscarUsuario($usuario, $pass, $latitud, $longitud);
-    //header('Location: ../');
+    header('Location: ../');
 }
-
-
-
-/*if (isset($_POST['register'])){
-    include_once("../model/model.php");
-    $usuario = $_POST['usuario'];
-    $email = $_POST['email'];
-    $pass = $_POST['pass'];
-    $pass2 = $_POST['pass2'];
-    if($pass == $pass2){
-        Model::registrarUsuario($usuario, $pass, $email);
-        header('Location: ../');
-        //echo "registro completado";
-    }
-}*/
 
 if (isset($_POST['register'])){
     include_once("../model/model.php");
@@ -95,7 +80,7 @@ if (isset($_POST['register'])){
         
         # Make the call to the client.
         $result = $mgClient->sendMessage("$domain",
-        array('from'    => 'App-Tracking IGSR <postmaster@sandboxe7f47692877a4fd6b2115e79c3ce660d.mailgun.org>',
+        array('from'    => 'App-Tracking DW32-IGSR <postmaster@sandboxe7f47692877a4fd6b2115e79c3ce660d.mailgun.org>',
             //'to'      => 'IGSR <dw32igsr@gmail.com>',
             'to'      => $usuario . ' ' .$email,
             'subject' => 'Registro en App-Tracking',
@@ -111,11 +96,3 @@ if (isset($_POST['register'])){
         //echo "registro completado";
     }
 }
-
-/*function destructorSesion(){
-    //vaciar la sesion
-    echo "prueba";
-    session_start();
-    session_destroy();
-    //header("location:index.php");
-}*/
