@@ -34,7 +34,7 @@ if(isset($_POST['editar'])){
     $longitud = $_POST['longitud'];
     //echo "$id_posicion, $latitud, $longitud, $titulo";
     Model::editarPosicion($id_posicion, $titulo, $latitud, $longitud); 
-    //header('Location: ../');
+    header('Location: ../');
 }
 
 if (isset($_POST['login'])){

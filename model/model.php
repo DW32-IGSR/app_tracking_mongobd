@@ -36,55 +36,17 @@ class Model {
         }
     }
     
-    //pendiente a pasar a mongo
-    /*public function editarPosicion($id_posicion, $titulo, $latitud, $longitud ) {
-        if ($_POST['editar']){
-            require_once("conexion.class.php");
-            $db = Conexion::conectar();
-            //echo "</br>$id_posicion, $latitud, $longitud, $titulo";
-            try {	
-            	$stmt = $db->prepare('UPDATE posicion SET titulo=:titulo, latitud=:latitud, longitud=:longitud WHERE id_posicion=:id_posicion');
-            	//$stmt = $db->prepare('UPDATE posicion SET titulo=?, latitud=?, longitud=? WHERE id_posicion=?');
-            	//$stmt->execute(array($titulo,$latitud,$longitud,$id_posicion));
-            	$stmt->bindParam(':titulo', $titulo);
-            	$stmt->bindParam(':latitud', $latitud);
-            	$stmt->bindParam(':longitud', $longitud);
-            	$stmt->bindParam(':id_posicion', $id_posicion);
-            	//$stmt->bindParam(':id_usuario', $id_usuario);
-                $stmt->execute();
-                //var_dump($stmt);
-            } catch (PDOException $e) {
-                echo 'Connection failed: ' . $e->getMessage();
-            }	
-        }
-    }*/
-    //pendiente a pasar a mongo
     public function editarPosicion($id_posicion, $titulo, $latitud, $longitud ) {
         if ($_POST['editar']){
             require_once("conexion.class.php");
             $m = conexion::conectar();
             $db = $m->selectDB('app_tracking');
             $collection = $db->posiciones;
-            $newdata = array('$set' => array("titulo" => $titulo, "latitud" => $latitud, "longitud" => $longitud));
             var_dump($newdata);
             echo "<br> $id_posicion";
-            $collection->update(array("_id" => new MongoId($id_posicion), $newdata));
-            
-            //echo "</br>$id_posicion, $latitud, $longitud, $titulo";
-            /*try {	
-            	$stmt = $db->prepare('UPDATE posicion SET titulo=:titulo, latitud=:latitud, longitud=:longitud WHERE id_posicion=:id_posicion');
-            	//$stmt = $db->prepare('UPDATE posicion SET titulo=?, latitud=?, longitud=? WHERE id_posicion=?');
-            	//$stmt->execute(array($titulo,$latitud,$longitud,$id_posicion));
-            	$stmt->bindParam(':titulo', $titulo);
-            	$stmt->bindParam(':latitud', $latitud);
-            	$stmt->bindParam(':longitud', $longitud);
-            	$stmt->bindParam(':id_posicion', $id_posicion);
-            	//$stmt->bindParam(':id_usuario', $id_usuario);
-                $stmt->execute();
-                //var_dump($stmt);
-            } catch (PDOException $e) {
-                echo 'Connection failed: ' . $e->getMessage();
-            }*/	
+            $collection->update(
+                array('_id' => new MongoId($id_posicion)),
+                array('$set' => array("titulo" => $titulo, "latitud" => $latitud, "longitud" => $longitud)));
         }
     }
     
