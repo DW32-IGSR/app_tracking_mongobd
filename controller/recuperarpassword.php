@@ -6,6 +6,7 @@ $email = $_POST["email"];
 
 $db = Conexion::conectar();
 
+//pasar a model
 $stm = $db->prepare("SELECT * FROM usuario WHERE email=:email");
 $stm->bindParam(":email", $email);
 $stm->execute();
@@ -30,11 +31,11 @@ if ($total == 1) {
         'to'      => $fila->usuario . ' ' .$email,
         'subject' => 'Validación de reinicio de contraseña',
         //'text'    => 'Mensaje desde Cloud9'));
-        'text'    => "Hola $usuario!
+        'text'    => "Hola $fila->usuario!
                     Recientemente se ha enviado una solicitud de reinicio de tu contraseña para nuestra área de miembros. 
                     Si no solicitaste esto, por favor ignora este correo.
                     Para reiniciar tu contraseña, por favor visita la url a continuación:
-                    https://login-register-lordders.c9users.io/model/recuperarpassword.php?activation=".$fila->activacion_key."&email=".$email.""));
+                    https://app-tracking-mongodb-nohtrim.c9.io/model/recuperarpassword.php?activation=".$fila->activacion_key."&email=".$email.""));
    
     ob_start();
 		header('refresh: 3; ../');

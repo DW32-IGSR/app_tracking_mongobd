@@ -2,13 +2,12 @@
 require '../vendor/autoload.php';
 use Mailgun\Mailgun;
 session_start();
-//include("../model/model.php");
+include("../model/model.php");
 //provisional
 //$_SESSION['id_usuario']=1;
 //echo "pruebas";
     
 if (isset($_POST['crearPosicion'])){
-    include_once("../model/model.php");
     session_start();
     //provisional
     $id_usuario = $_SESSION['id_usuario'];
@@ -20,14 +19,12 @@ if (isset($_POST['crearPosicion'])){
 }
 
 if (isset($_POST['borrar'])){
-    include_once("../model/model.php");
     $id_usuario = $_SESSION['id_usuario'];
     $id_posicion = $_POST['id_posicion'];
     Model::borrarPosicion($id_usuario, $id_posicion);
     header('Location: ../');
 }
 if(isset($_POST['editar'])){
-    include_once("../model/model.php");
     $titulo = $_POST['titulo'];
     $id_posicion = $_POST['id_posicion'];
     $latitud = $_POST['latitud'];
@@ -38,7 +35,6 @@ if(isset($_POST['editar'])){
 }
 
 if (isset($_POST['login'])){
-    include_once("../model/model.php");
     $usuario = $_POST['usuario'];
     $pass = $_POST['pass'];
     $latitud = $_GET['latitud'];
@@ -50,7 +46,6 @@ if (isset($_POST['login'])){
 }
 
 if (isset($_POST['register'])){
-    include_once("../model/model.php");
     $usuario = $_POST['usuario'];
     $email = $_POST['email'];
     $pass = $_POST['pass'];
