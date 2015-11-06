@@ -25,18 +25,6 @@ class Model {
         $collection->insert($document);
     }
     
-    //pendiente a pasar a mongo
-    /*public function borrarPosicion($id_usuario, $id_posicion) {
-        if ($_POST['borrar']){
-            require_once("conexion.class.php");
-            $db = Conexion::conectar();
-        	$stmt = $db->prepare('DELETE FROM posicion WHERE id_posicion=:id_posicion AND id_usuario=:id_usuario');
-        	$stmt->bindParam(':id_posicion', $id_posicion, PDO::PARAM_INT);
-        	$stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-            $stmt->execute();
-        }
-    }*/
-    
     public function borrarPosicion($id_usuario, $id_posicion) {
         if ($_POST['borrar']){
             require_once("conexion.class.php");
@@ -77,6 +65,11 @@ class Model {
             $m = conexion::conectar();
             $db = $m->selectDB('app_tracking');
             $collection = $db->posiciones;
+            
+            $newdata = array('$set' => array("titulo" => $titulo, "latitud" => $latitud, "longitud" => $longitud));
+            //$collection->update(array("activacion_key" => "$activation_key"), $newdata);
+            $collection->update(array("id_posicion" => "$id_posicion"), $newdata);
+            
             //echo "</br>$id_posicion, $latitud, $longitud, $titulo";
             /*try {	
             	$stmt = $db->prepare('UPDATE posicion SET titulo=:titulo, latitud=:latitud, longitud=:longitud WHERE id_posicion=:id_posicion');
