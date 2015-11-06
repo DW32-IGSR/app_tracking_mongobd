@@ -90,7 +90,7 @@ if (isset($_POST['register'])){
                         Su cuenta ha sido creada, y debe ser activada antes de poder ser utilizada.
                         Para activar la cuenta, haga click en el siguiente enlace o copielo en la
                         barra de direcciones del navegador:
-                        https://app-tracking-mongodb-nohtrim.c9.io/model/activate.php?activation=".$random_key.""));
+                        https://app-tracking-mongodb-nohtrim.c9.io/model/activate.php?activation=".$random_key."&email=".$email.""));
                 
         header('Location: ../');
         //echo "registro completado";

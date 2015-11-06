@@ -21,12 +21,12 @@ class Model {
         $m = conexion::conectar();
         $db = $m->selectDB('app_tracking');
         $collection = $db->posiciones;
-        //----
         $document=array("id_usuario" => "$id_usuario", "titulo" => "$titulo", "latitud" => "$latitud", "longitud" => "$longitud", "hora" => date("Y-m-d H:i:s"));
         $collection->insert($document);
     }
     
-    public function borrarPosicion($id_usuario, $id_posicion) {
+    //pendiente a pasar a mongo
+    /*public function borrarPosicion($id_usuario, $id_posicion) {
         if ($_POST['borrar']){
             require_once("conexion.class.php");
             $db = Conexion::conectar();
@@ -35,9 +35,21 @@ class Model {
         	$stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
             $stmt->execute();
         }
+    }*/
+    
+    public function borrarPosicion($id_usuario, $id_posicion) {
+        if ($_POST['borrar']){
+            require_once("conexion.class.php");
+            $m = Conexion::conectar();
+            $db = $m->selectDB('app_tracking');
+            $collection = $db->posiciones;
+            echo "id de la posicon: '$id_posicion'";
+            $collection->remove(array('_id' => new MongoId($id_posicion)));
+        }
     }
     
-    public function editarPosicion($id_posicion, $titulo, $latitud, $longitud ) {
+    //pendiente a pasar a mongo
+    /*public function editarPosicion($id_posicion, $titulo, $latitud, $longitud ) {
         if ($_POST['editar']){
             require_once("conexion.class.php");
             $db = Conexion::conectar();
@@ -56,6 +68,30 @@ class Model {
             } catch (PDOException $e) {
                 echo 'Connection failed: ' . $e->getMessage();
             }	
+        }
+    }*/
+    //pendiente a pasar a mongo
+    public function editarPosicion($id_posicion, $titulo, $latitud, $longitud ) {
+        if ($_POST['editar']){
+            require_once("conexion.class.php");
+            $m = conexion::conectar();
+            $db = $m->selectDB('app_tracking');
+            $collection = $db->posiciones;
+            //echo "</br>$id_posicion, $latitud, $longitud, $titulo";
+            /*try {	
+            	$stmt = $db->prepare('UPDATE posicion SET titulo=:titulo, latitud=:latitud, longitud=:longitud WHERE id_posicion=:id_posicion');
+            	//$stmt = $db->prepare('UPDATE posicion SET titulo=?, latitud=?, longitud=? WHERE id_posicion=?');
+            	//$stmt->execute(array($titulo,$latitud,$longitud,$id_posicion));
+            	$stmt->bindParam(':titulo', $titulo);
+            	$stmt->bindParam(':latitud', $latitud);
+            	$stmt->bindParam(':longitud', $longitud);
+            	$stmt->bindParam(':id_posicion', $id_posicion);
+            	//$stmt->bindParam(':id_usuario', $id_usuario);
+                $stmt->execute();
+                //var_dump($stmt);
+            } catch (PDOException $e) {
+                echo 'Connection failed: ' . $e->getMessage();
+            }*/	
         }
     }
     
