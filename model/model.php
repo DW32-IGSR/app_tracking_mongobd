@@ -65,10 +65,10 @@ class Model {
             $m = conexion::conectar();
             $db = $m->selectDB('app_tracking');
             $collection = $db->posiciones;
-            
             $newdata = array('$set' => array("titulo" => $titulo, "latitud" => $latitud, "longitud" => $longitud));
-            //$collection->update(array("activacion_key" => "$activation_key"), $newdata);
-            $collection->update(array("id_posicion" => "$id_posicion"), $newdata);
+            var_dump($newdata);
+            echo "<br> $id_posicion";
+            $collection->update(array("_id" => new MongoId($id_posicion), $newdata));
             
             //echo "</br>$id_posicion, $latitud, $longitud, $titulo";
             /*try {	
