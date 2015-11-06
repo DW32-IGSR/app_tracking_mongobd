@@ -2,6 +2,7 @@
 session_start();
 require 'vendor/autoload.php';
 include_once("model/model.php");
+//include_once("controller/controller.php");
 
 Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem('view');

@@ -46,30 +46,43 @@
             </div>
         </nav>
         
+        <br>
         <div class="container">
-            <h2> Recupera tu cuenta </h2>
-            <form class="form-horizontal" action='recuperarpassword2.php' method='POST' name='formulario_recuperarpassword'>
-                <div class="form-group">
-                    <div class="form-group">
-                        <div class="col-sm-5">
-                            <input class="form-control" type='hidden' name='email' value="<?php echo $_GET['email']; ?>">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="pass">Contraseña:</label>
-                        <div class="col-sm-5">
-                            <input class="form-control" type='password' name='pass'>
-                        </div>
-                    </div> 
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="pass2">Repita la contraseña:</label>
-                        <div class="col-sm-5">
-                            <input class="form-control" type='password' name='pass2'>
-                        </div>
-                    </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title"> Recupera tu cuenta </h4>
                 </div>
-                <button class="col-sm-offset-2 btn btn-info" type="submit" name="recuperarpassword">Cambiar contraseña</button>
-            </form>
+                <div class="panel-body">
+                    <!-- description list -->
+                    <dl class="dl-horizontal">
+                        <dd>
+                            <form class="form-horizontal" action='recuperarpassword2.php' method='POST' name='formulario_recuperarpassword'>
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <input class="form-control" type='hidden' name='email' value="<?php echo $_GET['email']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="pass">Contraseña:</label>
+                                        <div class="col-sm-5">
+                                            <input class="form-control" type='password' name='pass'>
+                                        </div>
+                                    </div> 
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="pass2">Repita la contraseña:</label>
+                                        <div class="col-sm-5">
+                                            <input class="form-control" type='password' name='pass2'>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="col-sm-offset-2 btn btn-info" type="submit" name="recuperarpassword">Cambiar contraseña</button>
+                            </form>
+                            <br/>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
         </div> 
     </body>
 </html>

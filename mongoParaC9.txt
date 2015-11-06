@@ -131,6 +131,10 @@ delete
 
     db.movie.remove({'name':'nuevo texto'})
     
+    db.usuarios.remove({"_id":ObjectId("5639ee9ee557b623c5819af7")})
+    
+    db.usuarios.remove({"email":"nohtrim@gmail.com"})
+    
 
 drop collections
 
@@ -163,3 +167,8 @@ select
     
     pendiente de revisar
     db.usuarios.find({usuario:"$usuario",pass:"$pass",validated:1})
+    
+    
+añadir claves unicas
+
+    db.usuarios.createIndex({"email":1},{unique:true})
