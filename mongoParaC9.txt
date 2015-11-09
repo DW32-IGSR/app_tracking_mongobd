@@ -17,7 +17,12 @@ conexion
     
     pendiente de crear usuario
     mongodb://<dbuser>:<dbpassword>@ds33400.mongolab.com:33400/
-    el nuestro mongodb://<dbuser>:<dbpassword>@ds049864.mongolab.com:49864/app_tracking
+    
+    el nuestro
+        https://mongolab.com/login/
+            dw32igsr
+            Zubiri2015
+        mongodb://<dbuser>:<dbpassword>@ds049864.mongolab.com:49864/app_tracking
 
     $m = new MongoClient("mongodb://test:test@ds033400.mongolab.com:33400/zmwebdev-test");
     

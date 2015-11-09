@@ -10,3 +10,4 @@ function mueveReloj(){
     
     setTimeout("mueveReloj()",1000);
 }
+window.onload=mueveReloj;
