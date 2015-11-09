@@ -15,7 +15,7 @@ if (isset($_POST['crearPosicion'])){
     $longitud = $_POST['longitud'];
     $titulo = $_POST['titulo'];
     Model::insertarPosicion($id_usuario, $titulo, $latitud, $longitud );
-    header('Location: ../');
+    //header('Location: ../');
 }
 
 if (isset($_POST['borrar'])){

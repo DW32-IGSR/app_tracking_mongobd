@@ -22,7 +22,9 @@ class Model {
         $db = $m->selectDB('app_tracking');
         $collection = $db->posiciones;
         $document=array("id_usuario" => "$id_usuario", "titulo" => "$titulo", "latitud" => "$latitud", "longitud" => "$longitud", "hora" => date("Y-m-d H:i:s"));
-        $collection->insert($document);
+        $prueba=$collection->insert($document);
+        echo $prueba;
+        var_dump($prueba);
     }
     
     public function borrarPosicion($id_usuario, $id_posicion) {
