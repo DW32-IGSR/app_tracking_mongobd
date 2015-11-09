@@ -1,5 +1,6 @@
 # app_tracking
 Aplicación de seguimiento de  posicion
 
-ejemplo mvc:
-htt
+estructura MVC
+base de datos Mongodb
+lenguajes php, html, css, js
