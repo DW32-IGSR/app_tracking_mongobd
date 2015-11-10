@@ -22,8 +22,10 @@
             var longitud = p.coords.longitude;
             //var titulo = 'prueba32';
             //alert(latti+' , '+longi);
-            document.getElementById('formulario_nav').action='../controller/controller.php?login&latitud='+latitud+'&longitud='+longitud;
-            document.getElementById('formulario_login').action='../controller/controller.php?login&latitud='+latitud+'&longitud='+longitud;
+            //document.getElementById('formulario_nav').action='../controller/controller.php?login&latitud='+latitud+'&longitud='+longitud;
+            //document.getElementById('formulario_login').action='../controller/controller.php?login&latitud='+latitud+'&longitud='+longitud;
+            document.getElementById('formulario_nav').action='?action=login&latitud='+latitud+'&longitud='+longitud;
+            document.getElementById('formulario_login').action='?action=login&latitud='+latitud+'&longitud='+longitud;
         }
     </script>
  
@@ -112,7 +114,7 @@
         <!-- description list -->
         <dl class="dl-horizontal">
             <dd>
-                <form class="form-horizontal" action='../controller/controller.php' method='POST' name='formulario_register'>
+                <form class="form-horizontal" action='?action=register' method='POST' name='formulario_register'>
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="usuario">Usuario:</label>
                         <div class="col-sm-5">

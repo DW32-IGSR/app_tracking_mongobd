@@ -10,7 +10,7 @@
         <script src='../js/reloj.js'></script>
         <title>App-tracking-twig</title>
     </head>
-    <body onload='mueveReloj()'>
+    <body>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
@@ -61,6 +61,9 @@
                                     <div class="form-group">
                                         <div class="col-sm-5">
                                             <input class="form-control" type='hidden' name='email' value="<?php echo $_GET['email']; ?>">
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <input class="form-control" type='hidden' name='key' value="<?php echo $_GET['activation']; ?>">
                                         </div>
                                     </div>
                                     <div class="form-group">

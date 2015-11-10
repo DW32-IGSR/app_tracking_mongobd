@@ -44,7 +44,7 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <!-- importante -->
-                        <li><a href="controller/logout.php">Cerrar sesión</a></li>
+                        <li><a href="?action=destructorSesion">Cerrar sesión</a></li>
                     </ul>                
                 </div>    
             </div>
@@ -64,7 +64,7 @@
                             <!--<tr>{#{{Posicion.mostrar()}}#}</tr>-->
                             <tr>
                                 <!--<form action='index.php?action=modificarPosicion' method='POST' name='varias'>-->
-                                <form action='controller/controller.php' method='POST' name='varias'>
+                                <form action='?action=modificarPosicion' method='POST' name='varias'>
                                	<td>{{Posicion.getId_posicion()}}</td> <input hidden name='id_posicion' value={{Posicion.getId_posicion()}} />
                                	<td><input name='titulo' value='{{Posicion.getTitulo()}}' /></td>
                                	<td><input name='latitud' value={{Posicion.getLatitud()}} /></td>
@@ -91,7 +91,7 @@
                 </div>   
                 <div class="panel-body">
                     <dl class="dl-horizontal">
-                        <form class="form-horizontal" action='controller/controller.php' method='POST' name='posicionar'> 
+                        <form class="form-horizontal" action='?action=posicionar' method='POST' name='posicionar'> 
                         <div  class="form-group">
                             <label class="col-sm-2 control-label" for="usuario">Título:</label>
                             <div class="col-sm-5">
