@@ -1,5 +1,6 @@
 <?php
 include("../model/conexion.class.php");
+include_once("../model/email.php");
 require '../vendor/autoload.php';
 use Mailgun\Mailgun;
 $email = $_POST["email"];
@@ -28,22 +29,7 @@ echo $fila->activacion_key;*/
 
 if ($total == 1) {
     
-    # Instantiate the client.
-    $mgClient = new Mailgun('key-116da3f3cd011ad01d454a632a599587');
-    $domain = "sandboxe7f47692877a4fd6b2115e79c3ce660d.mailgun.org";
-    
-    # Make the call to the client.
-    $result = $mgClient->sendMessage("$domain",
-    array('from'    => 'App-Tracking DW32-IGSR <postmaster@sandboxe7f47692877a4fd6b2115e79c3ce660d.mailgun.org>',
-        //'to'      => 'IGSR <dw32igsr@gmail.com>',
-        'to'      => $cursor['usuario'] . ' ' .$email,
-        'subject' => 'Validación de reinicio de contraseña',
-        //'text'    => 'Mensaje desde Cloud9'));
-        'text'    => "Hola ".$cursor['usuario']."!
-                    Recientemente se ha enviado una solicitud de reinicio de tu contraseña para nuestra área de miembros. 
-                    Si no solicitaste esto, por favor ignora este correo.
-                    Para reiniciar tu contraseña, por favor visita la url a continuación:
-                    https://app-tracking-mongodb-nohtrim.c9.io/model/recuperarpassword.php?activation=".$cursor['activacion_key']."&email=".$email.""));
+    Email::reinicioPassword($cursor['usuario'], $email, $cursor['activacion_key']);
    
     ob_start();
 		header('refresh: 3; ../');
